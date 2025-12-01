@@ -2,8 +2,10 @@
 
 [![Java](https://img.shields.io/badge/Java-24.0.2-orange.svg)](https://www.oracle.com/java/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)]()
+[![Status](https://img.shields.io/badge/Status-Active-success.svg)]()
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
 
-A robust, console-based Java application designed for efficient hostel room management. Features a user-friendly menu-driven interface with in-memory data persistence for seamless room allocation and tracking.
+A robust, feature-rich console-based Java application designed for efficient hostel room management. This system provides a comprehensive solution for managing room allocations, guest bookings, and hostel operations with a user-friendly menu-driven interface and real-time data management.
 
 ---
 
@@ -21,13 +23,34 @@ A robust, console-based Java application designed for efficient hostel room mana
 
 ## ✨ Features
 
+### 🔧 Core Room Management
 | Feature | Description |
 |---------|-------------|
 | ➕ **Add Room** | Register new rooms with unique room numbers, types, pricing, and availability status |
-| 📊 **View Rooms** | Display comprehensive room inventory in a formatted tabular layout |
+| 📊 **View All Rooms** | Display comprehensive room inventory with guest information in a formatted table |
 | 🔄 **Update Availability** | Modify room occupancy status (Available/Occupied) in real-time |
+| ✏️ **Update Room Details** | Edit room type and pricing information for existing rooms |
 | 🗑️ **Delete Room** | Remove rooms from the system with validation checks |
-| 🔍 **Search by Type** | Filter and retrieve rooms based on accommodation type |
+
+### 🔍 Advanced Search & Filter
+| Feature | Description |
+|---------|-------------|
+| 🏷️ **Search by Type** | Find rooms by accommodation type (Single/Double/Triple) |
+| 🔓 **Search by Availability** | Filter rooms based on occupancy status |
+| 💰 **Search by Price Range** | Retrieve rooms within specified budget constraints |
+| 🔢 **Search by Room Number** | Get detailed information for specific rooms |
+
+### 👥 Guest Management
+| Feature | Description |
+|---------|-------------|
+| 🛎️ **Allocate Room to Guest** | Assign available rooms to guests with name tracking |
+| 🚪 **Check-Out Guest** | Process guest departures and update room availability |
+
+### 📊 Analytics & Reporting
+| Feature | Description |
+|---------|-------------|
+| 📈 **Room Statistics Dashboard** | View comprehensive analytics including occupancy rates, revenue, and room distribution |
+| ⚡ **Sort Rooms** | Organize rooms by number, price, or type in ascending/descending order |
 
 ---
 
@@ -67,13 +90,24 @@ java HostelRoomSystem
 ### Main Menu Interface
 
 ```
-HOSTEL ROOM ALLOCATION SYSTEM
-1. ADD ROOM
-2. VIEW ROOMS
-3. UPDATE AVAILABILITY
-4. DELETE ROOM
-5. SEARCH BY TYPE
-0. EXIT
+========================================
+   HOSTEL ROOM ALLOCATION SYSTEM
+========================================
+1.  ADD ROOM
+2.  VIEW ALL ROOMS
+3.  UPDATE AVAILABILITY
+4.  UPDATE ROOM DETAILS
+5.  DELETE ROOM
+6.  SEARCH BY TYPE
+7.  SEARCH BY AVAILABILITY
+8.  SEARCH BY PRICE RANGE
+9.  SEARCH BY ROOM NUMBER
+10. ALLOCATE ROOM TO GUEST
+11. CHECK-OUT GUEST
+12. VIEW ROOM STATISTICS
+13. SORT ROOMS
+0.  EXIT
+========================================
 CHOOSE AN OPTION:
 ```
 
@@ -86,31 +120,53 @@ ENTER ROOM NUMBER: 201
 ENTER ROOM TYPE (Single/Double/Triple): Single
 ENTER ROOM PRICE: 5500.00
 ENTER AVAILABILITY (Available/Occupied): Available
-✓ Room added successfully!
+Room added successfully!
+```
+
+#### Allocating Room to Guest
+```
+CHOOSE AN OPTION: 10
+ENTER ROOM NUMBER TO ALLOCATE: 201
+ENTER GUEST NAME: John Doe
+Room allocated successfully to John Doe!
 ```
 
 #### Viewing All Rooms
 ```
 CHOOSE AN OPTION: 2
 
-CURRENT ROOMS:
-| ROOM ID | ROOM NUMBER | ROOM TYPE | PRICE      | AVAILABILITY |
-|---------|-------------|-----------|------------|--------------|
-| 1       | 101         | Single    | 5000.00    | Available    |
-| 2       | 102         | Double    | 7500.00    | Available    |
-| 3       | 103         | Triple    | 9000.00    | Occupied     |
+========================================
+            CURRENT ROOMS
+========================================
+| ROOM ID | ROOM NUMBER | ROOM TYPE | PRICE      | AVAILABILITY | GUEST NAME      |
+|---------|-------------|-----------|------------|--------------|-----------------|
+| 1       | 201         | Single    | 5500.00    | Occupied     | John Doe        |
+| 2       | 202         | Double    | 7500.00    | Available    | -               |
+| 3       | 203         | Triple    | 9000.00    | Occupied     | Jane Smith      |
+========================================
 ```
 
-#### Searching by Room Type
+#### Viewing Statistics Dashboard
 ```
-CHOOSE AN OPTION: 5
-ENTER ROOM TYPE TO SEARCH (Single/Double/Triple): Single
+CHOOSE AN OPTION: 12
 
-ROOMS OF TYPE: Single
-| ROOM ID | ROOM NUMBER | ROOM TYPE | PRICE      | AVAILABILITY |
-|---------|-------------|-----------|------------|--------------|
-| 1       | 101         | Single    | 5000.00    | Available    |
-| 4       | 104         | Single    | 5000.00    | Available    |
+========================================
+       HOSTEL ROOM STATISTICS
+========================================
+Total Rooms          : 15
+Occupied Rooms       : 8
+Available Rooms      : 7
+Occupancy Rate       : 53.33%
+----------------------------------------
+Room Distribution:
+  Single Rooms       : 6
+  Double Rooms       : 5
+  Triple Rooms       : 4
+----------------------------------------
+Average Room Price   : ₹6500.00
+Current Revenue      : ₹52000.00
+Potential Revenue    : ₹97500.00
+========================================
 ```
 
 ---
@@ -118,18 +174,17 @@ ROOMS OF TYPE: Single
 ## 📁 Project Structure
 
 ```
-java/
+Hostel-Room-Allocation-System/
 │
-├── HostelRoomSystem.java    # Main application entry point
-├── Room.class                # Compiled room entity class
-├── HostelRoomSystem.class    # Compiled main class
-└── README.md                 # Documentation
+├── HostelRoomSystem.java    # Main application with all features
+├── README.md                 # Complete documentation
+└── .gitignore               # Git ignore configuration
 ```
 
 ### Core Components
 
-- **`HostelRoomSystem.java`**: Main application controller with menu logic and business operations
-- **`Room` Class**: Data model representing individual room entities with encapsulated properties
+- **`HostelRoomSystem.java`**: Main application controller with menu logic and 13 feature implementations
+- **`Room` Class**: Data model representing individual room entities with encapsulated properties including guest information
 
 ---
 
@@ -145,16 +200,32 @@ java/
 
 ### Data Persistence
 
-- **Storage Method**: In-memory ArrayList
-- **Session Scope**: Data persists during application runtime
-- **Pre-loaded Data**: 5 sample rooms included for demonstration
+- **Storage Method**: In-memory ArrayList (session-based)
+- **Session Scope**: Data persists during application runtime only
+- **Advantage**: Fast, lightweight, no external dependencies
+- **Note**: Data is cleared when application exits (perfect for demonstration and testing)
 
 ### Key Technologies
 
-- **Language**: Java (Core)
-- **Data Structures**: ArrayList, Iterator
-- **Design Pattern**: Procedural with Object-Oriented principles
+- **Language**: Java SE 24.0.2
+- **Data Structures**: ArrayList, Iterator, Comparator
+- **Design Pattern**: Object-Oriented Programming with encapsulation
 - **I/O**: Scanner for console input/output
+- **Sorting**: Built-in Java Comparator interface
+- **Version Control**: Git & GitHub
+
+---
+
+## 🎯 Key Highlights
+
+- ✅ **13 Comprehensive Features** - Complete hostel management solution
+- ✅ **Zero Dependencies** - Pure Java implementation, no external libraries
+- ✅ **Object-Oriented Design** - Clean, maintainable code structure
+- ✅ **Real-time Updates** - Instant data modification and retrieval
+- ✅ **Advanced Analytics** - Revenue tracking and occupancy statistics
+- ✅ **User-Friendly Interface** - Intuitive menu-driven navigation
+- ✅ **Input Validation** - Duplicate room number prevention
+- ✅ **Flexible Sorting** - Multiple sort options available
 
 ---
 
