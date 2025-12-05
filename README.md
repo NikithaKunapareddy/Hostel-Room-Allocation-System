@@ -160,7 +160,7 @@ Reservation successful!
 ```
 
 ### Viewing All Reservations
-```
+<pre>
 CHOOSE AN OPTION: 2
 
 ========================================================================================================
@@ -172,7 +172,7 @@ ID     GUEST           ROOM NO      CONTACT         ROOM TYPE    PRICE      STAT
 2      Krishna         102          7896543671      Double       50000.00   Available    05-Dec-2025 13:44   
 1      Nikki           931          9347093126      Standard     0.00       Reserved     05-Dec-2025 13:30   
 ========================================================================================================
-```
+</pre>
 ---
 
 ### Getting Room Number
