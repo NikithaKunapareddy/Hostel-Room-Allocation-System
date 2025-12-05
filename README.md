@@ -1,10 +1,10 @@
-# 🏢 Hostel Room Allocation System
+# 🏨 Hostel Room Allocation System
 
 [![Java](https://img.shields.io/badge/Java-24.0.2-orange.svg)](https://www.oracle.com/java/)
 [![MySQL](https://img.shields.io/badge/MySQL-9.2-blue.svg)](https://www.mysql.com/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)]()
 
-A robust, console-based Java application for efficient hostel room management with MySQL database integration. Features include room allocation, guest management, and real-time data persistence with a user-friendly menu-driven interface.
+A robust, console-based Java application for efficient hostel room reservation management with MySQL database integration. Features include room reservation, guest management, and real-time data persistence with a user-friendly menu-driven interface.
 
 ---
 
@@ -24,11 +24,11 @@ A robust, console-based Java application for efficient hostel room management wi
 
 | Feature | Description |
 |---------|-------------|
-| ➕ **Add Room** | Register new rooms with room number, type, price, and availability |
-| 📊 **View Rooms** | Display all rooms in a formatted table |
-| 🔄 **Update Availability** | Modify room occupancy status (Available/Occupied) |
-| 🗑️ **Delete Room** | Remove rooms from the system |
-| 🔍 **Search by Type** | Find rooms by accommodation type (Single/Double/Triple) |
+| 🛏️ **Reserve a Room** | Book rooms with guest name, contact number, room details, and pricing |
+| 📊 **View Reservations** | Display all reservations in a clean formatted table |
+| 🔍 **Get Room Number** | Search room by reservation ID and guest name |
+| 🔄 **Update Reservations** | Modify guest details and room information |
+| 🗑️ **Delete Reservation** | Remove reservations from the system |
 
 ---
 
@@ -84,12 +84,17 @@ CREATE DATABASE IF NOT EXISTS hostel_db;
 
 USE hostel_db;
 
-CREATE TABLE IF NOT EXISTS rooms (
+DROP TABLE IF EXISTS rooms;
+
+CREATE TABLE rooms (
     room_id INT AUTO_INCREMENT PRIMARY KEY,
-    room_number INT UNIQUE NOT NULL,
+    guest_name VARCHAR(100) NOT NULL,
+    room_number INT NOT NULL,
+    contact_number VARCHAR(20) NOT NULL,
     room_type VARCHAR(50) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
-    availability VARCHAR(20) NOT NULL
+    availability VARCHAR(20) NOT NULL,
+    reservation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
@@ -125,20 +130,15 @@ java -cp ".;mysql-connector-j-9.5.0.jar" HostelRoomSystem
 **Note:** On Linux/Mac, use `:` instead of `;`:
 ```bash
 javac -cp ".:mysql-connector-j-9.5.0.jar" DBConnection.java HostelRoomSystem.java
-java -cp ".:mysql-connector-j-9.5.0.jar" HostelRoomSystem
-```
-
----
-
 ## 📖 Main Menu Interface
 
 ```
 HOSTEL ROOM ALLOCATION SYSTEM
-1. ADD ROOM
-2. VIEW ROOMS
-3. UPDATE AVAILABILITY
-4. DELETE ROOM
-5. SEARCH BY TYPE
+1. RESERVE A ROOM
+2. VIEW RESERVATIONS
+3. GET ROOM NUMBER
+4. UPDATE RESERVATIONS
+5. DELETE RESERVATION
 0. EXIT
 CHOOSE AN OPTION:
 ```
@@ -147,52 +147,60 @@ CHOOSE AN OPTION:
 
 ## 💡 Sample Workflow
 
-### Adding a New Room
+### Reserving a Room
 ```
 CHOOSE AN OPTION: 1
-ENTER ROOM NUMBER: 101
-ENTER ROOM TYPE (Single/Double/Triple): Single
-ENTER ROOM PRICE: 5000
-ENTER AVAILABILITY (Available/Occupied): Available
-Room added successfully!
+ENTER GUEST NAME: Nikki
+ENTER ROOM NUMBER: 103
+ENTER CONTACT NUMBER: 8976451234
+ENTER ROOM TYPE: Single
+ENTER PRICE: 10000.00
+ENTER AVAILABILITY (Reserved/Available): Reserved
+Reservation successful!
 ```
 
-### Viewing All Rooms
+### Viewing All Reservations
 ```
 CHOOSE AN OPTION: 2
 
-CURRENT ROOMS:
-| ROOM ID | ROOM NUMBER | ROOM TYPE | PRICE      | AVAILABILITY |
-|---------|-------------|-----------|------------|--------------|
-| 1       | 101         | Single    | 5000.00    | Available    |
-| 2       | 102         | Double    | 7500.00    | Occupied     |
-| 3       | 103         | Triple    | 9000.00    | Available    |
+========================================================================================================
+                                    CURRENT RESERVATIONS
+========================================================================================================
+ID     GUEST           ROOM NO      CONTACT         ROOM TYPE    PRICE      STATUS       DATE & TIME         
+--------------------------------------------------------------------------------------------------------
+3      Nikki           103          8976451234      Single       10000.00   Reserved     05-Dec-2025 14:13   
+2      Krishna         102          7896543671      Double       50000.00   Available    05-Dec-2025 13:44   
+1      Nikki           931          9347093126      Standard     0.00       Reserved     05-Dec-2025 13:30   
+========================================================================================================
 ```
+---
 
-### Updating Room Availability
+### Getting Room Number
 ```
 CHOOSE AN OPTION: 3
-ENTER ROOM NUMBER TO UPDATE: 101
-ENTER NEW AVAILABILITY (Available/Occupied): Occupied
-Room availability updated successfully!
+ENTER RESERVATION ID: 1
+ENTER GUEST NAME: Nikki
+Room Number: 931
 ```
 
-### Searching by Room Type
-```
-CHOOSE AN OPTION: 5
-ENTER ROOM TYPE TO SEARCH (Single/Double/Triple): Single
-
-ROOMS OF TYPE: Single
-| ROOM ID | ROOM NUMBER | ROOM TYPE | PRICE      | AVAILABILITY |
-|---------|-------------|-----------|------------|--------------|
-| 1       | 101         | Single    | 5000.00    | Occupied     |
-```
-
-### Deleting a Room
+### Updating a Reservation
 ```
 CHOOSE AN OPTION: 4
-ENTER ROOM NUMBER TO DELETE: 103
-Room deleted successfully!
+ENTER RESERVATION ID TO UPDATE: 1
+ENTER NEW GUEST NAME: Nikitha
+ENTER NEW ROOM NUMBER: 931
+ENTER NEW CONTACT NUMBER: 9347093126
+ENTER NEW ROOM TYPE: Deluxe
+ENTER NEW PRICE: 15000.00
+ENTER NEW AVAILABILITY: Reserved
+Reservation updated successfully!
+```
+
+### Deleting a Reservation
+```
+CHOOSE AN OPTION: 5
+ENTER RESERVATION ID TO DELETE: 1
+Reservation deleted successfully!
 ```
 
 ---
@@ -202,7 +210,7 @@ Room deleted successfully!
 ```
 Hostel-Room-Allocation-System/
 │
-├── HostelRoomSystem.java           # Main application with menu logic
+├── HostelRoomSystem.java           # Main reservation management application
 ├── DBConnection.java                # MySQL database connection handler
 ├── setup.sql                        # Database schema setup script
 ├── mysql-connector-j-9.5.0.jar     # MySQL JDBC driver
@@ -214,10 +222,24 @@ Hostel-Room-Allocation-System/
 
 ## 🔧 Technical Details
 
+### Database Schema
+
+**Table: rooms**
+| Column | Type | Description |
+|--------|------|-------------|
+| room_id | INT (PK, AUTO_INCREMENT) | Unique reservation ID |
+| guest_name | VARCHAR(100) | Guest's full name |
+| room_number | INT | Allocated room number |
+| contact_number | VARCHAR(20) | Guest contact number |
+| room_type | VARCHAR(50) | Room category (Single/Double/Suite/etc.) |
+| price | DECIMAL(10,2) | Room price |
+| availability | VARCHAR(20) | Status (Reserved/Available) |
+| reservation_date | TIMESTAMP | Auto-generated booking timestamp |
+
 ### Room Types Supported
 
-| Type | Capacity | Typical Price Range |
-|------|----------|---------------------|
+| Type | Typical Price Range | Common Use |
+|------|---------------------|------------|
 | 🛏️ **Single** | 1 Person | ₹4,000 - ₹6,000 |
 | 🛏️🛏️ **Double** | 2 Persons | ₹7,000 - ₹9,000 |
 | 🛏️🛏️🛏️ **Triple** | 3 Persons | ₹9,000 - ₹12,000 |
@@ -225,21 +247,21 @@ Hostel-Room-Allocation-System/
 ### Database Schema
 
 **Table: `rooms`**
-| Column | Type | Constraints |
-|--------|------|-------------|
-| room_id | INT | PRIMARY KEY, AUTO_INCREMENT |
-| room_number | INT | UNIQUE, NOT NULL |
-| room_type | VARCHAR(50) | NOT NULL |
-| price | DECIMAL(10,2) | NOT NULL |
-| availability | VARCHAR(20) | NOT NULL |
+| Type | Typical Price Range | Common Use |
+|------|---------------------|------------|
+| Single | ₹5,000 - ₹10,000 | Individual guests |
+| Double | ₹7,500 - ₹15,000 | Two guests |
+| Suite | ₹15,000 - ₹30,000 | Premium guests |
+| Deluxe | ₹20,000 - ₹50,000 | VIP guests |
 
 ### Data Persistence
 
 - **Storage**: MySQL Relational Database
-- **Persistence**: Permanent data storage
+- **Persistence**: Permanent data storage with timestamps
 - **ACID Compliance**: Full transactional support
 - **Advantage**: Data survives application restarts
 - **Connection**: JDBC (Java Database Connectivity)
+- **Auto-Timestamp**: Automatic reservation date recording
 
 ### Key Technologies
 
@@ -248,6 +270,7 @@ Hostel-Room-Allocation-System/
 - **JDBC Driver**: MySQL Connector/J 9.5.0
 - **Design Pattern**: MVC-inspired architecture
 - **I/O**: Scanner for console input/output
+- **Date Formatting**: SimpleDateFormat for clean timestamps
 - **Version Control**: Git & GitHub
 
 ---
@@ -255,11 +278,12 @@ Hostel-Room-Allocation-System/
 ## 🎯 Key Highlights
 
 - ✅ **Persistent Storage** - MySQL database for permanent data retention
-- ✅ **CRUD Operations** - Complete Create, Read, Update, Delete functionality
+- ✅ **Guest Management** - Complete reservation tracking with guest details
+- ✅ **Timestamp Recording** - Automatic reservation date and time logging
 - ✅ **Zero Data Loss** - Data persists even after program termination
 - ✅ **SQL Integration** - Professional database connectivity
-- ✅ **User-Friendly** - Simple menu-driven interface
-- ✅ **Input Validation** - Prevents duplicate room numbers
+- ✅ **User-Friendly** - Simple menu-driven interface with clean table display
+- ✅ **Formatted Output** - Beautiful console tables with proper alignment
 - ✅ **Error Handling** - Graceful error messages
 - ✅ **Clean Code** - Well-structured and maintainable
 
@@ -267,14 +291,14 @@ Hostel-Room-Allocation-System/
 
 ## 📊 View Data in MySQL Workbench
 
-After adding rooms, you can view them in MySQL Workbench:
+After making reservations, you can view them in MySQL Workbench:
 
 ```sql
 USE hostel_db;
-SELECT * FROM rooms;
+SELECT * FROM rooms ORDER BY reservation_date DESC;
 ```
 
-This will display all stored room data in a table format.
+This will display all stored reservation data in a table format with the latest bookings first.
 
 ---
 
@@ -311,20 +335,6 @@ For issues and queries, please create an issue in the repository.
 ---
 
 **⭐ Star this repository if you found it helpful!**
-
----
-
-## 📋 Table of Contents
-
-- [Features](#-features)
-- [System Requirements](#-system-requirements)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [Project Structure](#-project-structure)
-- [Technical Details](#-technical-details)
-- [Contributing](#-contributing)
-
----
 
 ## ✨ Features
 
