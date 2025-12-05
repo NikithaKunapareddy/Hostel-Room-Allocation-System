@@ -213,10 +213,32 @@ Hostel-Room-Allocation-System/
 ├── HostelRoomSystem.java           # Main reservation management application
 ├── DBConnection.java                # MySQL database connection handler
 ├── setup.sql                        # Database schema setup script
-├── mysql-connector-j-9.5.0.jar     # MySQL JDBC driver
-├── README.md                        # Project documentation
+├── mysql-connector-j-9.5.0.jar     # MySQL JDBC driver (9.5.0)
+├── README.md                        # Complete project documentation
 └── .gitignore                       # Git ignore configuration
 ```
+
+### File Descriptions
+
+| File | Purpose | Lines of Code |
+|------|---------|---------------|
+| `HostelRoomSystem.java` | Main application with menu interface and 5 core features | ~200 |
+| `DBConnection.java` | Handles MySQL database connectivity using JDBC | ~30 |
+| `setup.sql` | SQL script to create database and tables | ~15 |
+| `mysql-connector-j-9.5.0.jar` | JDBC driver for MySQL connectivity | Library |
+| `README.md` | Comprehensive documentation | Documentation |
+| `.gitignore` | Git exclusion rules | Configuration |
+
+### File Descriptions
+
+| File | Purpose | Description |
+|------|---------|-------------|
+| `HostelRoomSystem.java` | Main Application | Contains all reservation management logic and menu interface |
+| `DBConnection.java` | Database Handler | Manages MySQL connection and JDBC driver loading |
+| `setup.sql` | Database Schema | SQL script to create database and tables |
+| `mysql-connector-j-9.5.0.jar` | JDBC Driver | MySQL connector library for database connectivity |
+| `README.md` | Documentation | Complete project documentation and usage guide |
+| `.gitignore` | Version Control | Git configuration to exclude unnecessary files |
 
 ---
 
